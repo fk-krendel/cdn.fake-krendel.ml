@@ -14,10 +14,10 @@ code.hljs{
   color:#888 !important
 }
 .hljs-punctuation, .hljs-tag{
-  color:#444a !important
+  color:#fffa !important
 }
 .hljs-tag .hljs-attr, .hljs-tag .hljs-name{
-  color:#444 !important
+  color:#fff !important
 }
 .hljs-attribute,.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-name,.hljs-selector-tag{
   font-weight:700 !important
