@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>FkText</title>
+	<script type="text/javascript">
+		let app = {}
+		app.menu = {}
+		app.menu.opened = false
+		app.editor = {}
+		app.editor.filepath = "FkCDN - Web Test File"
+		app.editor.filetext = "Hello, this is Test Web Document.\n\nDeveloper: Samtsow Nikita"
+	</script>
+	<style type="text/css">
+		.bar {
+			position: fixed;
+			top: 0px;
+			height: 30px;
+			background: rgba(28, 28, 28, 1);
+			width: 100%;
+			left: 0px;
+			user-select: none;
+		}
+		.bar .app-title {
+			position: absolute;
+			top: 0px;
+			height: 30px;
+			line-height: 30px;
+			left: 40px;
+			color: white;
+			font-family: sans-serif;
+			font-weight: bold;
+		}
+		.bar .menu-button {
+			width: 20px;
+			height: 20px;
+			background: rgba(255, 255, 255, 1);
+			left: 10px;
+			top: 5px;
+			position: absolute;
+		}
+		.editor {
+			position: fixed;
+			left: 0px;
+			right: 0px;
+			width: 100%;
+			height: calc(100% - 30px - 20px - 20px);
+			top: 30px;
+			background: rgba(50, 50, 50, 1);
+		}
+		.bbar {
+			position: fixed;
+			user-select: none;
+			bottom: 0px;
+			height: 20px;
+			line-height: 20px;
+			width: 100%;
+			left: 0px;
+			background: rgba(40, 30, 30, 1);
+		}
+		.bbar .filetype {
+			position: absolute;
+			left: 20px;
+			width: 16px;
+			height: 16px;
+			top: 2px;
+			background: white;
+		}
+		.bbar .filepath {
+			position: absolute;
+			left: 40px;
+			top: 0px;
+			line-height: 20px;
+			color: rgba(255, 255, 255, 0.5);
+			font-family: sans-serif;
+			font-size: 12px;
+		}
+		.editor {
+			color: white;
+			padding-left: 20px;
+			padding-right: 20px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			font-family: sans-serif;
+			width: calc(100% - 40px);
+			z-index: 999;
+			white-space: pre;
+			line-height: 20px;
+		}
+		.editor {
+			display: flex;
+		}
+		.editor .cursor {
+			display: inline;
+			position: relative;
+			font-size: 20px;
+			animation-name: animCur;
+			animation-duration: 0.5s;
+			animation-iteration-count: infinite;
+			animation-timing-function: linear;
+			line-height: 20px;
+		}
+		@keyframes animCur {
+			0% {
+				opacity: 1;
+			}
+			50% {
+				opacity: 0;
+			}
+			100% {
+				opacity: 1;
+			}
+		}
+	</style>
+</head>
+<body onload="appLoop()">
+
+	<div class="bar">
+		<div class="menu-button"></div>
+		<span class="app-title">FkText Editor</span>
+	</div>
+
+	<div class="editor">
+		<div id="editor"></div><br>
+
+	</div>
+
+	<div class="bbar">
+		<div class="filetype"></div>
+		<div class="filepath" id="app-filepath"></div>
+	</div>
+
+
+	<script type="text/javascript">
+		function appLoop() {
+			document.body.onkeydown = document.body.onkeyup = document.body.onkeypress = appClick
+			appEvent()
+		}
+		function appClick(e) {
+			let keys = ["Escape", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12", "Tab", "CapsLock", "Shift", "Alt", "Control", "ContextMenu", "Backspace", "Enter", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"]
+			let ina = true
+			for (var i = 0; i < keys.length; i++) {
+				if (e.key == keys[i]) {
+					ina = false
+				}
+			} 
+			console.log(e.key)
+			if (e.type == "keydown") {
+				if (ina == false && e.key == "Enter") {
+					app.editor.filetext += "\n"
+				}
+				if (ina == false && e.key == "Backspace") {
+					app.editor.filetext = app.editor.filetext.substring(0, app.editor.filetext.length - 1)
+				}
+				if (ina == true) {
+					app.editor.filetext += e.key
+				}
+			}
+			
+			appEvent()
+		}
+		function appEvent() {
+			document.getElementById("app-filepath").innerHTML = app.editor.filepath
+			document.getElementById("editor").innerHTML = app.editor.filetext + "<span class='cursor'>|</span>"
+		}
+	</script>
+
+
+</body>
+</html>
